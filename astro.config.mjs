@@ -8,6 +8,6 @@ export default defineConfig({
   // @astrojs/cloudflare (or any) adapter is needed. Cloudflare Pages just serves dist/.
   output: 'static',
   // Required for @astrojs/rss and @astrojs/sitemap to emit absolute URLs.
-  site: 'https://pnwpottery.com',
+  site: 'https://potterypnw.com',
   integrations: [sitemap()],
 });
