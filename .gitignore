@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # Claude Code local session config
 .claude/
+
+# Source content drops (originals live outside the repo; only the exported,
+# resized assets under src/assets/ get committed)
+Session */

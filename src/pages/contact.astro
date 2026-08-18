@@ -1,0 +1,33 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+	title="Contact"
+	description="Get in touch about custom orders, commissions, or questions about a piece."
+>
+	<div class="prose">
+		<p>
+			Questions about a piece, a custom order, or anything else — email is the best way to reach me.
+		</p>
+		<p class="email">
+			<a href="mailto:timoconn@pm.me">timoconn@pm.me</a>
+		</p>
+		<p>
+			Before you write, the <a href="/faq">FAQ</a> covers the common questions: pricing, shipping, care,
+			and custom order scoping.
+		</p>
+	</div>
+</PageLayout>
+
+<style>
+	.prose p {
+		margin-block: 0 var(--space-3);
+	}
+
+	.email {
+		font-family: var(--font-display);
+		font-size: var(--text-2xl);
+		margin-block: var(--space-4);
+	}
+</style>

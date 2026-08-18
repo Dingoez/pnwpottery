@@ -1,10 +1,143 @@
 ---
+import { Picture } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PieceGrid from '../components/PieceGrid.astro';
+import { getAllPieces } from '../lib/pieces';
+import { formatDate } from '../lib/format';
+import homeHero from '../assets/site/home-hero.jpg';
+
+const pieces = await getAllPieces();
+const featured = pieces.filter((piece) => piece.data.featured).slice(0, 6);
+
+// Empty-safe: the posts collection has no entries yet, so this section simply
+// doesn't render until the blog lands.
+const posts = await getCollection('posts');
+const latestPosts = posts
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 2);
 ---
 
-<BaseLayout title="Home" description="Pacific Northwest pottery — functional and sculptural stoneware and porcelain.">
+<BaseLayout
+	title="Home"
+	description="Colorful, stenciled, one-of-a-kind ceramics made in Seattle by Tim O'Connell."
+>
+	<section class="hero">
+		<Picture
+			src={homeHero}
+			alt="A round white vase with a red rim, hand-stenciled with the USA soccer crest and scattered red and navy stars, sitting on a metal banding wheel"
+			widths={[400, 800, 1200, 1800]}
+			sizes="100vw"
+			formats={['avif', 'webp']}
+			fallbackFormat="jpg"
+			loading="eager"
+			fetchpriority="high"
+		/>
+	</section>
+
 	<div class="container">
-		<h1>PNW Pottery</h1>
-		<p><a href="/gallery">View the gallery →</a></p>
+		<section class="intro">
+			<h1>Colorful, stenciled, one-of-a-kind pots — made in Seattle.</h1>
+			<p>
+				I'm Tim. I throw and decorate functional sculptures out of the Throw &amp; Build studio in
+				Wallingford. <a href="/about">More about me →</a>
+			</p>
+		</section>
+
+		{
+			featured.length > 0 && (
+				<section class="block">
+					<div class="block-head">
+						<h2>Featured work</h2>
+						<a href="/gallery">See everything →</a>
+					</div>
+					<PieceGrid pieces={featured} />
+				</section>
+			)
+		}
+
+		{
+			latestPosts.length > 0 && (
+				<section class="block">
+					<div class="block-head">
+						<h2>From the blog</h2>
+						<a href="/blog">All posts →</a>
+					</div>
+					<ul class="posts">
+						{latestPosts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								<p class="meta">{formatDate(post.data.date)}</p>
+								<p>{post.data.description}</p>
+							</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
 	</div>
 </BaseLayout>
+
+<style>
+	.hero :global(img) {
+		width: 100%;
+		height: min(60vh, 30rem);
+		object-fit: cover;
+		/* Bias the crop upward — the pot sits in the top two-thirds of the frame. */
+		object-position: center 38%;
+	}
+
+	.intro {
+		max-width: 40ch;
+		padding-block: var(--space-5);
+	}
+
+	.intro h1 {
+		margin-bottom: var(--space-3);
+	}
+
+	.intro p {
+		margin: 0;
+	}
+
+	.block {
+		margin-block: var(--space-6);
+	}
+
+	.block-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-3);
+		margin-bottom: var(--space-4);
+	}
+
+	.block-head a {
+		font-size: var(--text-sm);
+		white-space: nowrap;
+	}
+
+	.posts {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: var(--space-4);
+	}
+
+	@media (min-width: 768px) {
+		.posts {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	.posts p {
+		margin-block: var(--space-1) 0;
+	}
+
+	.meta {
+		color: var(--sage);
+		font-size: var(--text-sm);
+	}
+</style>

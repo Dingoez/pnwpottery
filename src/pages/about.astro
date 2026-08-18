@@ -1,0 +1,85 @@
+---
+import { Picture } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import aboutPhoto from '../assets/site/about-tim.jpg';
+---
+
+<PageLayout
+	title="About"
+	heading="Howdy!"
+	description="Tim O'Connell makes colorful, stenciled, one-of-a-kind ceramics out of the Throw & Build studio in Wallingford, Seattle."
+>
+	<div class="layout">
+		<div class="photo">
+			<Picture
+				src={aboutPhoto}
+				alt="Tim O'Connell leaning on a wooden fence at a green coastal overlook, pointing at the camera"
+				widths={[400, 800, 1200]}
+				sizes="(min-width: 768px) 40vw, 100vw"
+				formats={['avif', 'webp']}
+				fallbackFormat="jpg"
+				loading="eager"
+			/>
+		</div>
+
+		<div class="prose">
+			<p>
+				I'm Tim. I am from Seattle, currently live in Seattle and make my ceramic artwork in Seattle.
+				Currently working out of the Throw &amp; Build studio in Wallingford, I have varied interests
+				within the ceramics world, but my favorite pots are colorful, large, stenciled, one-of-a-kind
+				pieces.
+			</p>
+			<p>
+				My ceramics journey began in high school at Shorewood High School in Shoreline, WA. I took a
+				ceramics class and instantly fell in love with the wheel. No idea why it spoke to me so, but I
+				was hooked. I still have my first ever pot. I then moved on to take ceramics classes at
+				Shoreline CC (now called Shoreline College) and studied under the great Sam Scott.
+			</p>
+			<p>
+				As time went on, ceramics came in and out of my life over the next two decades. A pop-up studio
+				here, random class there. I never really focused on it in full again until late 2025. I now
+				spend roughly 20 hours a week working on the craft (yes, still have a day job, booooooooo), and
+				who knows how much time when I am not being held back by the man.
+			</p>
+			<p>
+				I usually work in light clay colors, though I do love black clays. Laguna B-Mix is probably my
+				current favorite clay to work with, but I stray into all types of porcelains and occasionally
+				black clays as well. I love working with stencils that I create on my own and print with a
+				Cricut machine. I do not love the Cricut machine, but it does help me make some amazing pots.
+			</p>
+			<p>
+				You'll find vases, mugs, planters, a bolo or two, pitchers and freakishly decorated pots of all
+				sizes often with a lot of underglazes as I attempt to figure out what "my style" ultimately is.
+			</p>
+			<p>
+				Thanks for checking out the page. Feel free to email me at
+				<a href="mailto:timoconn@pm.me">timoconn@pm.me</a> with questions and check the
+				<a href="/faq">FAQ</a> for basic questions.
+			</p>
+			<p>Cheers!! — Tim</p>
+		</div>
+	</div>
+</PageLayout>
+
+<style>
+	.layout {
+		display: grid;
+		gap: var(--space-5);
+	}
+
+	@media (min-width: 768px) {
+		.layout {
+			grid-template-columns: 2fr 3fr;
+			align-items: start;
+		}
+	}
+
+	.photo :global(img) {
+		width: 100%;
+		height: auto;
+	}
+
+	.prose p {
+		margin-block: 0 var(--space-3);
+	}
+</style>

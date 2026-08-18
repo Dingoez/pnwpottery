@@ -1,0 +1,78 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const faqs = [
+	{
+		q: 'Custom and personalized orders',
+		a: `I am currently accepting orders for custom and personalized pieces, subject to change any time.
+			Please email me for more info and project scoping. The items featured in my shop updates
+			represent the extent of what is currently available for purchase.`,
+		email: true,
+	},
+	{
+		q: 'How much are your pieces?',
+		a: `All of my pieces are functional sculptures that take many hours to complete. The price range
+			depends on size, time spent making and level of skill required.`,
+	},
+	{
+		q: 'Do you ship worldwide?',
+		a: `I ship worldwide and pack everything very carefully! Buyers are responsible for all customs and
+			import fees.`,
+	},
+	{
+		q: 'Are your pieces microwave or dishwasher safe?',
+		a: 'Yes! — Unless otherwise stated of course.',
+	},
+	{
+		q: 'Where can I see pieces in person?',
+		a: `Right now, unless you stop by Throw & Build in Wallingford, everything is just online. As I get
+			pieces into stores and shows, this site will update with location information.`,
+	},
+];
+---
+
+<PageLayout title="FAQ" description="Care, shipping, custom orders, and where to find pieces in person.">
+	<dl class="faq">
+		{
+			faqs.map((item) => (
+				<div class="item">
+					<dt>{item.q}</dt>
+					<dd>
+						{item.a}
+						{item.email && (
+							<>
+								{' '}
+								Email me at <a href="mailto:timoconn@pm.me">timoconn@pm.me</a>.
+							</>
+						)}
+					</dd>
+				</div>
+			))
+		}
+	</dl>
+</PageLayout>
+
+<style>
+	.faq {
+		max-width: 65ch;
+		margin: 0;
+	}
+
+	.item + .item {
+		margin-top: var(--space-5);
+		border-top: 1px solid var(--sand);
+		padding-top: var(--space-4);
+	}
+
+	dt {
+		font-family: var(--font-display);
+		font-size: var(--text-xl);
+		color: var(--ink);
+		margin-bottom: var(--space-2);
+	}
+
+	dd {
+		margin: 0;
+		line-height: 1.65;
+	}
+</style>
