@@ -1,0 +1,48 @@
+---
+import SiteMark from './SiteMark.astro';
+---
+
+<header class="site-header">
+	<div class="container bar">
+		<a href="/" class="mark-link" aria-label="PNW Pottery home">
+			<SiteMark />
+		</a>
+		<nav aria-label="Primary">
+			<a href="/gallery">Gallery</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		border-bottom: 1px solid var(--sand);
+	}
+
+	.bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-block: var(--space-3);
+	}
+
+	.mark-link {
+		text-decoration: none;
+	}
+
+	nav {
+		display: flex;
+		gap: var(--space-4);
+	}
+
+	nav a {
+		text-decoration: none;
+		color: var(--ink);
+		font-size: var(--text-sm);
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+	}
+
+	nav a:hover {
+		color: var(--terracotta);
+	}
+</style>

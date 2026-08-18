@@ -17,4 +17,13 @@
 	--space-6: 4rem;
 
 	--radius: 2px;
+
+	/* Type scale, ratio ~1.22 */
+	--text-sm: 0.82rem;
+	--text-base: 1rem;
+	--text-lg: 1.22rem;
+	--text-xl: 1.49rem;
+	--text-2xl: 1.82rem;
+	--text-3xl: 2.22rem;
+	--text-4xl: 2.7rem;
 }

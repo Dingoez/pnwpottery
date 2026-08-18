@@ -10,4 +10,10 @@ export default defineConfig({
   // Required for @astrojs/rss and @astrojs/sitemap to emit absolute URLs.
   site: 'https://potterypnw.com',
   integrations: [sitemap()],
+  build: {
+    // Force external .css files instead of inlined <style> tags — the site's
+    // CSP ships `style-src 'self'` with no `unsafe-inline`, so inline styles
+    // would silently be blocked by the browser in production.
+    inlineStylesheets: 'never',
+  },
 });

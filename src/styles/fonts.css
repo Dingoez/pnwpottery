@@ -1,0 +1,15 @@
+@import '@fontsource-variable/karla';
+
+@font-face {
+	font-family: 'Fugue Paper Sans';
+	src: url('../assets/fonts/fugue-paper-sans-regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--font-display: 'Fugue Paper Sans', system-ui, sans-serif;
+	--font-body: 'Karla Variable', system-ui, sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', monospace;
+}

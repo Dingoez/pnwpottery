@@ -1,0 +1,26 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container bar">
+		<p>© {year} PNW Pottery</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--sand);
+		margin-top: var(--space-6);
+	}
+
+	.bar {
+		padding-block: var(--space-4);
+	}
+
+	p {
+		margin: 0;
+		color: var(--sage);
+		font-size: var(--text-sm);
+	}
+</style>

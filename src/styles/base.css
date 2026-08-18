@@ -12,8 +12,31 @@ body {
 	margin: 0;
 	background: var(--paper);
 	color: var(--ink);
-	font-family: system-ui, sans-serif;
+	font-family: var(--font-body);
+	font-size: var(--text-base);
 	line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--font-display);
+	font-weight: 400;
+	line-height: 1.15;
+	margin: 0;
+}
+
+h1 {
+	font-size: var(--text-4xl);
+}
+
+h2 {
+	font-size: var(--text-2xl);
+}
+
+h3 {
+	font-size: var(--text-xl);
 }
 
 img {
@@ -23,6 +46,11 @@ img {
 
 a {
 	color: var(--terracotta);
+}
+
+.prose {
+	max-width: 65ch;
+	line-height: 1.65;
 }
 
 :focus-visible {
