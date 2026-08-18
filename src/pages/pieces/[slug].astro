@@ -1,0 +1,89 @@
+---
+import { Picture } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PiecePlacard from '../../components/PiecePlacard.astro';
+import SoldBadge from '../../components/SoldBadge.astro';
+import BuyButton from '../../components/BuyButton.astro';
+
+export async function getStaticPaths() {
+	const pieces = await getCollection('pieces');
+	return pieces.map((piece) => ({
+		params: { slug: piece.id },
+		props: { piece },
+	}));
+}
+
+const { piece } = Astro.props;
+const { title, images, description } = piece.data;
+const [hero, ...rest] = images;
+---
+
+<BaseLayout title={title} description={description}>
+	<article class="container">
+		<div class="hero">
+			<Picture
+				src={hero.src}
+				alt={hero.alt}
+				widths={[400, 800, 1200, 1800]}
+				sizes="(min-width: 768px) 50vw, 100vw"
+				formats={['avif', 'webp']}
+				fallbackFormat="jpg"
+				loading="eager"
+			/>
+		</div>
+
+		{
+			rest.length > 0 && (
+				<div class="thumbs">
+					{rest.map((img) => (
+						<Picture
+							src={img.src}
+							alt={img.alt}
+							widths={[400]}
+							sizes="200px"
+							formats={['avif', 'webp']}
+							fallbackFormat="jpg"
+							loading="lazy"
+						/>
+					))}
+				</div>
+			)
+		}
+
+		<h1>{title}</h1>
+		<SoldBadge sold={piece.data.sold} />
+		<PiecePlacard piece={piece} />
+		<BuyButton piece={piece} />
+
+		{description && <p class="description">{description}</p>}
+	</article>
+</BaseLayout>
+
+<style>
+	.hero :global(img) {
+		width: 100%;
+		height: auto;
+	}
+
+	.thumbs {
+		display: flex;
+		gap: var(--space-2);
+		margin-block: var(--space-2);
+	}
+
+	.thumbs :global(img) {
+		width: 5rem;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+	}
+
+	h1 {
+		margin-block: var(--space-4) var(--space-2);
+	}
+
+	.description {
+		max-width: 65ch;
+		margin-top: var(--space-4);
+	}
+</style>

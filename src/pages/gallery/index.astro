@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PieceGrid from '../../components/PieceGrid.astro';
+import { getAllPieces, groupByYear } from '../../lib/pieces';
+
+const pieces = await getAllPieces();
+const byYear = groupByYear(pieces);
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<BaseLayout title="Gallery" description="The full collection of pieces, including archive and sold work.">
+	<div class="container">
+		<h1>Gallery</h1>
+		{
+			years.map((year) => (
+				<section>
+					<h2>{year}</h2>
+					<PieceGrid pieces={byYear.get(year)!} />
+				</section>
+			))
+		}
+	</div>
+</BaseLayout>
+
+<style>
+	section {
+		margin-block: var(--space-5);
+	}
+</style>

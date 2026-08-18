@@ -1,0 +1,54 @@
+---
+import type { Piece } from '../lib/pieces';
+
+interface Props {
+	piece: Piece;
+}
+
+const { piece } = Astro.props;
+const { clay, glaze, dimensions } = piece.data;
+---
+
+<dl class="placard">
+	<div>
+		<dt>Clay</dt>
+		<dd>{clay}</dd>
+	</div>
+	<div>
+		<dt>Glaze</dt>
+		<dd>{glaze}</dd>
+	</div>
+	<div>
+		<dt>Dimensions</dt>
+		<dd>{dimensions}</dd>
+	</div>
+</dl>
+
+<style>
+	.placard {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+		margin: 0;
+		font-family: ui-monospace, monospace;
+		font-size: 0.8rem;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		color: var(--sage);
+	}
+
+	.placard div {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+
+	dt {
+		font-weight: 600;
+	}
+
+	dd {
+		margin: 0;
+		color: var(--ink);
+	}
+</style>

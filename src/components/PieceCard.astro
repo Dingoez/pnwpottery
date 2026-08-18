@@ -1,0 +1,63 @@
+---
+import { Picture } from 'astro:assets';
+import SoldBadge from './SoldBadge.astro';
+import type { Piece } from '../lib/pieces';
+
+interface Props {
+	piece: Piece;
+}
+
+const { piece } = Astro.props;
+const hero = piece.data.images[0];
+const seriesAttr = piece.data.series
+	? piece.data.series.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+	: undefined;
+---
+
+<a class="card" href={`/pieces/${piece.id}/`} data-series={seriesAttr}>
+	<div class="thumb">
+		<Picture
+			src={hero.src}
+			alt={hero.alt}
+			widths={[400, 800]}
+			sizes="(min-width: 768px) 25vw, 50vw"
+			formats={['avif', 'webp']}
+			fallbackFormat="jpg"
+			loading="lazy"
+		/>
+		<SoldBadge sold={piece.data.sold} />
+	</div>
+	<p class="title">{piece.data.title}</p>
+</a>
+
+<style>
+	.card {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.thumb {
+		position: relative;
+		aspect-ratio: 4 / 5;
+		overflow: hidden;
+		background: var(--sand);
+	}
+
+	.thumb :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.thumb :global(.sold-badge) {
+		position: absolute;
+		top: var(--space-2);
+		right: var(--space-2);
+	}
+
+	.title {
+		margin: var(--space-2) 0 0;
+		font-size: 0.95rem;
+	}
+</style>

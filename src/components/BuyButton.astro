@@ -1,0 +1,36 @@
+---
+import { formatPrice } from '../lib/format';
+import type { Piece } from '../lib/pieces';
+
+interface Props {
+	piece: Piece;
+}
+
+const { piece } = Astro.props;
+const { price, sold, stripeUrl } = piece.data;
+const purchasable = price !== undefined && !sold && stripeUrl;
+---
+
+{
+	purchasable && (
+		<a class="buy-button" href={stripeUrl} rel="noopener">
+			Buy — {formatPrice(price!)}
+		</a>
+	)
+}
+
+<style>
+	.buy-button {
+		display: inline-block;
+		background: var(--terracotta);
+		color: var(--paper);
+		text-decoration: none;
+		font-weight: 600;
+		padding: var(--space-2) var(--space-4);
+		border-radius: var(--radius);
+	}
+
+	.buy-button:hover {
+		opacity: 0.9;
+	}
+</style>

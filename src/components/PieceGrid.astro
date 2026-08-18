@@ -1,0 +1,28 @@
+---
+import PieceCard from './PieceCard.astro';
+import type { Piece } from '../lib/pieces';
+
+interface Props {
+	pieces: Piece[];
+}
+
+const { pieces } = Astro.props;
+---
+
+<div class="grid">
+	{pieces.map((piece) => <PieceCard piece={piece} />)}
+</div>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--space-4);
+	}
+
+	@media (min-width: 768px) {
+		.grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>
