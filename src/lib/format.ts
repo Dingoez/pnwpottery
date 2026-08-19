@@ -7,5 +7,13 @@ export function formatPrice(price: number): string {
 }
 
 export function formatDate(date: Date): string {
-	return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+	// Render in UTC. A bare `date: 2026-08-19` in frontmatter parses as UTC
+	// midnight, so formatting in a negative-offset local timezone would render
+	// it as the previous day.
+	return new Intl.DateTimeFormat('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		timeZone: 'UTC',
+	}).format(date);
 }

@@ -1,0 +1,85 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import TagList from '../../components/TagList.astro';
+import { getPublishedPosts } from '../../lib/posts';
+import { formatDate } from '../../lib/format';
+
+const posts = await getPublishedPosts();
+---
+
+<PageLayout title="Blog" description="Writing about ceramics, cities, and whatever else is on my mind.">
+	<p class="lede">
+		Notes on making things, and on the city I make them in.{' '}
+		<a href="/rss.xml">Subscribe via RSS</a>.
+	</p>
+
+	{
+		posts.length === 0 ? (
+			<p>No posts yet — check back soon.</p>
+		) : (
+			<ul class="posts">
+				{posts.map((post) => (
+					<li>
+						<p class="meta">
+							<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+						</p>
+						<h2>
+							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+						</h2>
+						<p class="desc">{post.data.description}</p>
+						<TagList tags={post.data.tags} />
+					</li>
+				))}
+			</ul>
+		)
+	}
+</PageLayout>
+
+<style>
+	.lede {
+		max-width: 65ch;
+		color: var(--sage);
+		margin-block: 0 var(--space-5);
+	}
+
+	.lede a {
+		color: var(--sky-ink, var(--terracotta));
+	}
+
+	.posts {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		max-width: 65ch;
+	}
+
+	.posts li + li {
+		margin-top: var(--space-5);
+		border-top: 1px solid var(--sand);
+		padding-top: var(--space-4);
+	}
+
+	h2 {
+		margin-block: var(--space-1);
+	}
+
+	h2 a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	h2 a:hover {
+		color: var(--terracotta);
+	}
+
+	.meta {
+		margin: 0;
+		color: var(--sage);
+		font-size: var(--text-sm);
+	}
+
+	.desc {
+		margin-block: var(--space-2);
+		line-height: 1.65;
+	}
+</style>

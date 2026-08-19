@@ -1,0 +1,74 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagList from '../../components/TagList.astro';
+import { getPublishedPosts } from '../../lib/posts';
+import { formatDate } from '../../lib/format';
+
+export async function getStaticPaths() {
+	const posts = await getPublishedPosts();
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+	<article class="container post">
+		<header>
+			<p class="meta">
+				<time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+			</p>
+			<h1>{post.data.title}</h1>
+			<TagList tags={post.data.tags} />
+		</header>
+
+		<div class="prose">
+			<Content />
+		</div>
+
+		<footer>
+			<a href="/blog">← All posts</a>
+		</footer>
+	</article>
+</BaseLayout>
+
+<style>
+	.post {
+		padding-block: var(--space-5);
+		max-width: 65ch;
+	}
+
+	.meta {
+		margin: 0 0 var(--space-2);
+		color: var(--sage);
+		font-size: var(--text-sm);
+	}
+
+	h1 {
+		margin-bottom: var(--space-3);
+	}
+
+	.prose {
+		margin-top: var(--space-5);
+		line-height: 1.65;
+	}
+
+	.prose :global(p) {
+		margin-block: 0 var(--space-4);
+	}
+
+	.prose :global(a) {
+		color: var(--terracotta);
+	}
+
+	footer {
+		margin-top: var(--space-5);
+		padding-top: var(--space-4);
+		border-top: 1px solid var(--sand);
+	}
+</style>

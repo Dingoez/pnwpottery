@@ -29,3 +29,5 @@ pnpm-debug.log*
 # Source content drops (originals live outside the repo; only the exported,
 # resized assets under src/assets/ get committed)
 Session */
+*.docx
+~$*

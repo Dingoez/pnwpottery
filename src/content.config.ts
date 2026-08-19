@@ -65,6 +65,9 @@ const likes = defineCollection({
 	loader: file('./src/content/likes/likes.yaml'),
 	schema: z.object({
 		id: z.string(),
+		// Explicit display order — getCollection returns entries sorted by id,
+		// which would otherwise alphabetize the list and lose the intended order.
+		order: z.number().int(),
 		title: z.string(),
 		url: z.string().url(),
 		note: z.string(),

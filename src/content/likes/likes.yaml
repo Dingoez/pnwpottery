@@ -1,1 +1,156 @@
-[]
+- id: throw-and-build
+  order: 1
+  title: Throw & Build
+  url: https://www.throwandbuild.com/
+  category: Ceramics
+  note: >-
+    This is my home community and studio for now. Great place, great owners, great people.
+    Stop in, take a class, say hi. The studio will have a large holiday sale in December —
+    12.5.26, 10am–4pm. Flyer and link to come.
+
+- id: steven-young-lee
+  order: 2
+  title: Steven Young Lee
+  url: https://stevenyounglee.com/
+  category: Ceramics
+  note: Just wow. Huge inspiration.
+
+- id: sam-scott
+  order: 3
+  title: Sam Scott
+  url: https://www.samscottpottery.com
+  category: Ceramics
+  note: >-
+    I consider Sam both a mentor and a friend. Sam was my first and most formative ceramics
+    mentor. He was also a neighbor. And an incredible, detailed and meticulous potter.
+
+- id: katie-marks
+  order: 4
+  title: Katie Marks — Silver Lining Ceramics
+  url: https://www.silverliningceramics.com/
+  category: Ceramics
+  note: So colorful!
+
+- id: r-mariners
+  order: 5
+  title: r/Mariners
+  url: https://www.reddit.com/r/Mariners/new/
+  category: Culture
+  note: >-
+    Blind and unwavering faith to the M's is the ultimate test of strength and fortitude,
+    or something like that.
+
+- id: the-classy-issue
+  order: 6
+  title: The Classy Issue
+  url: https://theclassyissue.com/
+  category: Culture
+  note: Love this blog.
+
+- id: simon-stalenhag
+  order: 7
+  title: Simon Stålenhag Gallery
+  url: https://simonstalenhag.se/
+  category: Culture
+  note: Sick art bruh.
+
+- id: cognitive-resonance
+  order: 8
+  title: Cognitive Resonance
+  url: https://buildcognitiveresonance.substack.com/
+  category: Culture
+  note: My friend Ben Riley's blog — building human knowledge to halt AI hype.
+
+- id: marketplace
+  order: 9
+  title: Marketplace
+  url: https://www.marketplace.org/
+  category: Culture
+  note: Good radio.
+
+- id: mtv-rewind
+  order: 10
+  title: MTV Rewind
+  url: https://wantmymtv.org/
+  category: Music
+  note: You want your MTV, trust.
+
+- id: sublime-frequencies
+  order: 11
+  title: Sublime Frequencies
+  url: https://www.sublimefrequencies.com/
+  category: Music
+  note: Hard yes.
+
+- id: art-of
+  order: 12
+  title: ART OF
+  url: https://art-of.com/
+  category: Clothes
+  note: Football (soccer for me) related cloth.
+
+- id: roark
+  order: 13
+  title: Roark
+  url: https://roark.com/
+  category: Clothes
+  note: Love their stuff.
+
+- id: stop-hacklore
+  order: 14
+  title: Stop Hacklore!
+  url: https://www.hacklore.org/
+  category: Cybersecurity & Privacy
+  note: For real yo.
+
+- id: techlore
+  order: 15
+  title: Techlore
+  url: https://techlore.tech/
+  category: Cybersecurity & Privacy
+  note: Privacy is your right, use it or lose it.
+
+- id: eff
+  order: 16
+  title: Electronic Frontier Foundation
+  url: https://www.eff.org/
+  category: Cybersecurity & Privacy
+  note: >-
+    Possibly the most important non profit in America at this pivotal moment in time.
+    Consider donating to them.
+
+- id: krebs-on-security
+  order: 17
+  title: Krebs on Security
+  url: https://krebsonsecurity.com/
+  category: Cybersecurity & Privacy
+  note: Great cyber reporter/blog.
+
+- id: citizen-lab
+  order: 18
+  title: The Citizen Lab
+  url: https://citizenlab.ca/
+  category: Cybersecurity & Privacy
+  note: They do amazing work here.
+
+- id: r-privacy
+  order: 19
+  title: r/Privacy
+  url: https://www.reddit.com/r/privacy/
+  category: Cybersecurity & Privacy
+  note: Reddit privacy page.
+
+- id: aa-washington
+  order: 20
+  title: WA State AA Meetings
+  url: https://area72aa.org/meetings/
+  category: Recovery
+  note: >-
+    AA has saved my life, literally. If you suffer from addiction, consider AA.
+
+- id: recovery-dharma
+  order: 21
+  title: Recovery Dharma
+  url: https://recoverydharma.org/
+  category: Recovery
+  note: Another path worth knowing about.

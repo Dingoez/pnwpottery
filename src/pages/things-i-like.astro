@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+
+const likes = (await getCollection('likes')).sort((a, b) => a.data.order - b.data.order);
+
+// Preserve a deliberate section order rather than sorting alphabetically.
+const order = ['Ceramics', 'Culture', 'Music', 'Clothes', 'Cybersecurity & Privacy', 'Recovery'];
+
+const grouped = order
+	.map((category) => ({
+		category,
+		items: likes.filter((like) => like.data.category === category),
+	}))
+	.filter((group) => group.items.length > 0);
+
+const uncategorized = likes.filter((like) => !like.data.category);
+if (uncategorized.length > 0) grouped.push({ category: 'Everything else', items: uncategorized });
+---
+
+<PageLayout
+	title="Things I Like"
+	heading="Things I Like"
+	description="Studios, blogs, music, clothes, and causes worth a look — a running list of things I think are great."
+>
+	<div class="intro">
+		<p>
+			Yeah, I like stuff. I just do. Clothes. Music. Art. Cybersecurity. Community. Women. Movies.
+			Sports. Soccer.
+		</p>
+		<p class="disclaimer">
+			None of these people or organizations asked to be named here. I just like dope shit. Do not
+			take my link to these establishments as an endorsement, nor permission granted from them to be
+			named here. I'm just saying, this shit is hot.
+		</p>
+	</div>
+
+	{
+		grouped.map((group) => (
+			<section>
+				<h2>{group.category}</h2>
+				<ul>
+					{group.items.map((like) => (
+						<li>
+							<a href={like.data.url} rel="noopener nofollow">
+								{like.data.title}
+							</a>
+							<p>{like.data.note}</p>
+						</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</PageLayout>
+
+<style>
+	.intro {
+		max-width: 65ch;
+		margin-bottom: var(--space-6);
+	}
+
+	.intro p {
+		margin-block: 0 var(--space-3);
+		line-height: 1.65;
+	}
+
+	.disclaimer {
+		border-left: 3px solid var(--sky);
+		padding-left: var(--space-3);
+		color: var(--sage);
+		font-size: var(--text-sm);
+	}
+
+	section {
+		margin-bottom: var(--space-6);
+		max-width: 65ch;
+	}
+
+	h2 {
+		border-bottom: 1px solid var(--sand);
+		padding-bottom: var(--space-2);
+		margin-bottom: var(--space-4);
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li + li {
+		margin-top: var(--space-4);
+	}
+
+	li a {
+		font-weight: 600;
+		text-decoration-color: var(--sky);
+		text-underline-offset: 3px;
+	}
+
+	li p {
+		margin: var(--space-1) 0 0;
+		line-height: 1.65;
+	}
+</style>

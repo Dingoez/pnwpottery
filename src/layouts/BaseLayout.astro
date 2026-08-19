@@ -20,6 +20,7 @@ const { title, description } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		{description && <meta name="description" content={description} />}
+		<link rel="alternate" type="application/rss+xml" title="PNW Pottery" href="/rss.xml" />
 		<title>{title} — PNW Pottery</title>
 	</head>
 	<body>
