@@ -1,12 +1,13 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
 import { getPublishedPosts } from '../lib/posts';
+import { SITE_NAME } from '../lib/site';
 
 export async function GET(context: APIContext) {
 	const posts = await getPublishedPosts();
 
 	return rss({
-		title: 'PNW Pottery',
+		title: SITE_NAME,
 		description: 'Writing about ceramics, cities, and whatever else is on my mind.',
 		// `site` comes from astro.config.mjs — without it, feed links come out relative.
 		site: context.site!,

@@ -4,6 +4,7 @@ import '../styles/fonts.css';
 import '../styles/base.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_NAME } from '../lib/site';
 
 interface Props {
 	title: string;
@@ -20,8 +21,8 @@ const { title, description } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		{description && <meta name="description" content={description} />}
-		<link rel="alternate" type="application/rss+xml" title="PNW Pottery" href="/rss.xml" />
-		<title>{title} — PNW Pottery</title>
+		<link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
+		<title>{title} — {SITE_NAME}</title>
 	</head>
 	<body>
 		<a href="#main" class="visually-hidden">Skip to content</a>

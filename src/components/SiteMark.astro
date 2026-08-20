@@ -2,9 +2,10 @@
 // Swappable maker's-mark. Once the real logo SVG arrives, replace this markup
 // with `import mark from '../assets/site/mark.svg?raw'` and
 // `<Fragment set:html={mark} />` — every caller stays the same.
+import { SITE_NAME } from '../lib/site';
 ---
 
-<span class="site-mark">PNW Pottery</span>
+<span class="site-mark">{SITE_NAME}</span>
 
 <style>
 	.site-mark {

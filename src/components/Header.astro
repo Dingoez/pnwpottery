@@ -1,10 +1,11 @@
 ---
 import SiteMark from './SiteMark.astro';
+import { SITE_NAME } from '../lib/site';
 ---
 
 <header class="site-header">
 	<div class="container bar">
-		<a href="/" class="mark-link" aria-label="PNW Pottery home">
+		<a href="/" class="mark-link" aria-label={`${SITE_NAME} home`}>
 			<SiteMark />
 		</a>
 		<nav aria-label="Primary">
