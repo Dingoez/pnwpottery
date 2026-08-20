@@ -16,10 +16,27 @@ export async function getPurchasablePieces(): Promise<Piece[]> {
 	return pieces.filter(isPurchasable);
 }
 
+/**
+ * Stand-in `stripeUrl`s are marked with "placeholder" until the real Payment
+ * Links exist. The site is public, so a Buy button pointing at a fake Stripe
+ * URL would hand a real visitor a dead checkout — these fall back to email
+ * instead, and flip to a live button automatically once real URLs land.
+ */
+export function isLivePaymentLink(url: string | undefined): url is string {
+	return typeof url === 'string' && !url.includes('placeholder');
+}
+
+/** Purchasable *and* actually checkout-able right now. */
+export function canCheckout(piece: Piece): boolean {
+	return isPurchasable(piece) && isLivePaymentLink(piece.data.stripeUrl);
+}
+
 export function groupByYear(pieces: Piece[]): Map<number, Piece[]> {
 	const groups = new Map<number, Piece[]>();
 	for (const piece of pieces) {
-		const year = piece.data.date.getFullYear();
+		// UTC to match how bare frontmatter dates parse — getFullYear() would put a
+		// Jan 1 piece in the previous year for anyone in a negative-offset timezone.
+		const year = piece.data.date.getUTCFullYear();
 		const group = groups.get(year);
 		if (group) {
 			group.push(piece);

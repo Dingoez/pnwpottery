@@ -1,0 +1,45 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PieceGrid from '../../components/PieceGrid.astro';
+import { getPurchasablePieces } from '../../lib/pieces';
+import { CONTACT_EMAIL } from '../../lib/site';
+
+// price != null && sold == false — the shared filter, so Shop and the buy
+// button can never disagree about what's for sale.
+const forSale = await getPurchasablePieces();
+---
+
+<PageLayout
+	title="Shop"
+	description="Pieces currently available to buy. Everything is one of a kind — once it's gone, it's gone."
+>
+	<p class="lede">
+		Everything here is one of a kind, so there's exactly one of each. Shipping worldwide, or local
+		pickup in Seattle. See the <a href="/faq">FAQ</a> for shipping and care.
+	</p>
+
+	{
+		forSale.length === 0 ? (
+			<p class="empty">
+				Nothing is available right now — new work goes up after each firing. In the meantime, the{' '}
+				<a href="/gallery">gallery</a> has everything I've made, and you can{' '}
+				<a href={`mailto:${CONTACT_EMAIL}`}>email me</a> about a custom piece.
+			</p>
+		) : (
+			<PieceGrid pieces={forSale} showPrice />
+		)
+	}
+</PageLayout>
+
+<style>
+	.lede {
+		max-width: 65ch;
+		color: var(--sage);
+		margin-block: 0 var(--space-5);
+	}
+
+	.empty {
+		max-width: 65ch;
+		line-height: 1.65;
+	}
+</style>

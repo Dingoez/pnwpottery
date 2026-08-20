@@ -4,13 +4,14 @@ import type { Piece } from '../lib/pieces';
 
 interface Props {
 	pieces: Piece[];
+	showPrice?: boolean;
 }
 
-const { pieces } = Astro.props;
+const { pieces, showPrice = false } = Astro.props;
 ---
 
 <div class="grid">
-	{pieces.map((piece) => <PieceCard piece={piece} />)}
+	{pieces.map((piece) => <PieceCard piece={piece} showPrice={showPrice} />)}
 </div>
 
 <style>

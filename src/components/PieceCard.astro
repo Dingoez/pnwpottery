@@ -1,17 +1,18 @@
 ---
 import { Picture } from 'astro:assets';
 import SoldBadge from './SoldBadge.astro';
-import type { Piece } from '../lib/pieces';
+import { formatPrice } from '../lib/format';
+import { seriesSlug, type Piece } from '../lib/pieces';
 
 interface Props {
 	piece: Piece;
+	/** Shop grid shows price; gallery grid stays clean. */
+	showPrice?: boolean;
 }
 
-const { piece } = Astro.props;
+const { piece, showPrice = false } = Astro.props;
 const hero = piece.data.images[0];
-const seriesAttr = piece.data.series
-	? piece.data.series.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-	: undefined;
+const seriesAttr = piece.data.series ? seriesSlug(piece.data.series) : undefined;
 ---
 
 <a class="card" href={`/pieces/${piece.id}/`} data-series={seriesAttr}>
@@ -28,6 +29,7 @@ const seriesAttr = piece.data.series
 		<SoldBadge sold={piece.data.sold} />
 	</div>
 	<p class="title">{piece.data.title}</p>
+	{showPrice && piece.data.price !== undefined && <p class="price">{formatPrice(piece.data.price)}</p>}
 </a>
 
 <style>
@@ -59,5 +61,11 @@ const seriesAttr = piece.data.series
 	.title {
 		margin: var(--space-2) 0 0;
 		font-size: 0.95rem;
+	}
+
+	.price {
+		margin: var(--space-1) 0 0;
+		color: var(--sage);
+		font-size: var(--text-sm);
 	}
 </style>

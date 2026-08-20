@@ -1,22 +1,35 @@
 ---
 import { formatPrice } from '../lib/format';
-import type { Piece } from '../lib/pieces';
+import { canCheckout, isPurchasable, type Piece } from '../lib/pieces';
+import { CONTACT_EMAIL } from '../lib/site';
 
 interface Props {
 	piece: Piece;
 }
 
 const { piece } = Astro.props;
-const { price, sold, stripeUrl } = piece.data;
-const purchasable = price !== undefined && !sold && stripeUrl;
+const { title, price, stripeUrl } = piece.data;
+
+const forSale = isPurchasable(piece);
+const checkoutReady = canCheckout(piece);
+const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Inquiry: ${title}`)}`;
 ---
 
 {
-	purchasable && (
-		<a class="buy-button" href={stripeUrl} rel="noopener">
-			Buy — {formatPrice(price!)}
-		</a>
-	)
+	forSale &&
+		(checkoutReady ? (
+			<a class="buy-button" href={stripeUrl} rel="noopener">
+				Buy — {formatPrice(price!)}
+			</a>
+		) : (
+			<div class="pending">
+				<p class="price">{formatPrice(price!)}</p>
+				<p class="note">
+					Checkout isn't live for this piece yet —{' '}
+					<a href={mailto}>email me to purchase</a>.
+				</p>
+			</div>
+		))
 }
 
 <style>
@@ -32,5 +45,17 @@ const purchasable = price !== undefined && !sold && stripeUrl;
 
 	.buy-button:hover {
 		opacity: 0.9;
+	}
+
+	.pending .price {
+		font-family: var(--font-display);
+		font-size: var(--text-2xl);
+		margin: 0;
+	}
+
+	.pending .note {
+		margin: var(--space-1) 0 0;
+		color: var(--sage);
+		font-size: var(--text-sm);
 	}
 </style>
