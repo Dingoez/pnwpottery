@@ -96,22 +96,36 @@
   category: Clothes
   note: Love their stuff.
 
-- id: stop-hacklore
+- id: mariners
   order: 14
+  title: Seattle Mariners
+  url: https://www.mlb.com/mariners
+  category: Sport
+  note: I am a sad, morose, lowly M's fan. And that will never change.
+
+- id: seahawks
+  order: 15
+  title: Seattle Seahawks
+  url: https://www.seahawks.com/
+  category: Sport
+  note: On the bright side — I am a Seahawks fan. YAY!
+
+- id: stop-hacklore
+  order: 16
   title: Stop Hacklore!
   url: https://www.hacklore.org/
   category: Cybersecurity & Privacy
   note: For real yo.
 
 - id: techlore
-  order: 15
+  order: 17
   title: Techlore
   url: https://techlore.tech/
   category: Cybersecurity & Privacy
   note: Privacy is your right, use it or lose it.
 
 - id: eff
-  order: 16
+  order: 18
   title: Electronic Frontier Foundation
   url: https://www.eff.org/
   category: Cybersecurity & Privacy
@@ -120,28 +134,28 @@
     Consider donating to them.
 
 - id: krebs-on-security
-  order: 17
+  order: 19
   title: Krebs on Security
   url: https://krebsonsecurity.com/
   category: Cybersecurity & Privacy
   note: Great cyber reporter/blog.
 
 - id: citizen-lab
-  order: 18
+  order: 20
   title: The Citizen Lab
   url: https://citizenlab.ca/
   category: Cybersecurity & Privacy
   note: They do amazing work here.
 
 - id: r-privacy
-  order: 19
+  order: 21
   title: r/Privacy
   url: https://www.reddit.com/r/privacy/
   category: Cybersecurity & Privacy
   note: Reddit privacy page.
 
 - id: aa-washington
-  order: 20
+  order: 22
   title: WA State AA Meetings
   url: https://area72aa.org/meetings/
   category: Recovery
@@ -149,7 +163,7 @@
     AA has saved my life, literally. If you suffer from addiction, consider AA.
 
 - id: recovery-dharma
-  order: 21
+  order: 23
   title: Recovery Dharma
   url: https://recoverydharma.org/
   category: Recovery

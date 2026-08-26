@@ -5,7 +5,15 @@ import PageLayout from '../layouts/PageLayout.astro';
 const likes = (await getCollection('likes')).sort((a, b) => a.data.order - b.data.order);
 
 // Preserve a deliberate section order rather than sorting alphabetically.
-const order = ['Ceramics', 'Culture', 'Music', 'Clothes', 'Cybersecurity & Privacy', 'Recovery'];
+const order = [
+	'Ceramics',
+	'Culture',
+	'Music',
+	'Clothes',
+	'Sport',
+	'Cybersecurity & Privacy',
+	'Recovery',
+];
 
 const grouped = order
 	.map((category) => ({
@@ -25,8 +33,8 @@ if (uncategorized.length > 0) grouped.push({ category: 'Everything else', items:
 >
 	<div class="intro">
 		<p>
-			Yeah, I like stuff. I just do. Clothes. Music. Art. Cybersecurity. Community. Women. Movies.
-			Sports. Soccer.
+			Yeah, I like stuff. I just do. Clothes. Music. Art. Cybersecurity. Community. Movies. Sports.
+			Soccer.
 		</p>
 		<p class="disclaimer">
 			None of these people or organizations asked to be named here. I just like dope shit. Do not
