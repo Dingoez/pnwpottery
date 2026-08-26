@@ -5,6 +5,14 @@
 	--sand: #cdc08c;
 	--sage: #798e87;
 	--terracotta: #c27d38;
+
+	/* Text-safe variants. The brand terracotta and sage sit at ~3.2:1 on paper,
+	   under the WCAG AA 4.5:1 minimum for body text. These are the same hues
+	   darkened to clear it (4.57:1 and 4.53:1). Use these anywhere the color
+	   carries text — or sits behind it, as on the buy button. The undarkened
+	   originals stay for rules, borders and fills, which only need 3:1. */
+	--terracotta-deep: #9d652d;
+	--sage-deep: #647670;
 	--sky: #85d4e3;
 	--blush: #f4b5bd;
 	--butter: #fad77b;

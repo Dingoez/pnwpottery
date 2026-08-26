@@ -45,7 +45,7 @@ img {
 }
 
 a {
-	color: var(--terracotta);
+	color: var(--terracotta-deep);
 }
 
 .prose {
