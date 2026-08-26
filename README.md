@@ -125,10 +125,13 @@ Real numbers, measured — not aspirational.
 
 | Page | Performance | Accessibility | Best Practices | SEO |
 |---|---|---|---|---|
-| Home | 96 | 95 | 92 | 100 |
-| Gallery | 99 | 94 | 92 | 100 |
+| Home | 99 | 100 | 92 | 100 |
+| Gallery | 99 | 100 | 92 | 100 |
 
-Home: LCP 1.9 s, CLS 0, TBT 0 ms. Gallery: LCP 1.6 s, CLS 0.01, 64 KiB total.
+Home: LCP 1.8 s, CLS 0, TBT 0 ms. Gallery: LCP 1.6 s, CLS 0.01, 64 KiB total.
+
+Accessibility is 100 with no failing audits on either page. Best Practices is capped at 92
+for a reason outside the codebase — see below.
 
 **Page weight** (HTML + CSS + fonts + largest image variant offered):
 
@@ -147,17 +150,20 @@ lands, which is the point at which the budget actually gets tested.
 
 Written down rather than quietly omitted:
 
-1. **Best Practices is 92, not 95+.** Cloudflare auto-injects its Web Analytics beacon
-   (`static.cloudflareinsights.com/beacon.min.js`) into the response. The CSP correctly
-   blocks it, and Lighthouse counts the resulting console errors against the page. The fix
-   is to disable Web Analytics for the zone — the score is being docked for a third-party
-   script the site never asked for, which is the CSP doing its job.
-2. **Link contrast is ~3.15:1.** Terracotta (`#C27D38`) on paper (`#FAF8F4`) sits below the
-   WCAG AA 4.5:1 threshold for body text. Needs a darker shade for text links; the brand
-   terracotta can stay on button backgrounds.
-3. **Piece photography is placeholder.** See above.
-4. **The maker's mark is a text wordmark.** `SiteMark.astro` is built to consume a swappable
+1. **Best Practices is 92, not 95+, and it isn't the site's doing.** Cloudflare auto-injects
+   its Web Analytics beacon (`static.cloudflareinsights.com/beacon.min.js`) into the
+   response. The CSP blocks it — correctly, since the site declares no third-party scripts —
+   and Lighthouse counts the resulting console errors against the page. The two failing
+   audits are "Browser errors were logged to the console" and the matching DevTools issue,
+   both tracing to that one blocked request. The fix is to disable Web Analytics for the
+   zone; the score is being docked for the CSP doing exactly its job.
+2. **Piece photography is placeholder.** See above.
+3. **The maker's mark is a text wordmark.** `SiteMark.astro` is built to consume a swappable
    SVG — drop the file in and change one component.
+
+Closed: link and metadata contrast, which sat at ~3.2:1 against paper and failed WCAG AA
+across links, the buy button and all metadata. Fixed with `--terracotta-deep` and
+`--sage-deep` (4.57:1 and 4.53:1); Accessibility went 95 → 100.
 
 ---
 
