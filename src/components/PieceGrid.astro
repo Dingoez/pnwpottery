@@ -15,15 +15,19 @@ const { pieces, showPrice = false } = Astro.props;
 </div>
 
 <style>
+	/* A masonry column layout rather than a fixed-aspect-ratio grid — pottery
+	   photos run from tall bottle vases to wide shallow bowls, and cropping
+	   every thumbnail to the same box was losing real information (a bowl's
+	   rim, a vase's full profile). Each card keeps its photo's natural
+	   proportions; the columns balance themselves. */
 	.grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--space-4);
+		column-count: 2;
+		column-gap: var(--space-4);
 	}
 
 	@media (min-width: 768px) {
 		.grid {
-			grid-template-columns: repeat(4, 1fr);
+			column-count: 4;
 		}
 	}
 </style>
