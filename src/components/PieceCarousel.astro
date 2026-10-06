@@ -1,0 +1,162 @@
+---
+import { Picture } from 'astro:assets';
+import type { Piece } from '../lib/pieces';
+
+interface Props {
+	images: Piece['data']['images'];
+}
+
+const { images } = Astro.props;
+const multiple = images.length > 1;
+---
+
+<div class="carousel" data-carousel>
+	<div class="frame">
+		{
+			images.map((img, i) => (
+				<Picture
+					src={img.src}
+					alt={img.alt}
+					widths={[400, 600, 900]}
+					sizes="(min-width: 640px) 36rem, 100vw"
+					formats={['avif', 'webp']}
+					fallbackFormat="jpg"
+					loading={i === 0 ? 'eager' : 'lazy'}
+					data-slide
+					class={i === 0 ? 'active' : undefined}
+				/>
+			))
+		}
+
+		{
+			multiple && (
+				<>
+					<button type="button" class="nav prev" aria-label="Previous photo">
+						‹
+					</button>
+					<button type="button" class="nav next" aria-label="Next photo">
+						›
+					</button>
+				</>
+			)
+		}
+	</div>
+
+	{
+		multiple && (
+			<div class="dots" role="tablist" aria-label="Piece photos">
+				{images.map((_, i) => (
+					<button
+						type="button"
+						class="dot"
+						data-dot
+						role="tab"
+						aria-label={`Show photo ${i + 1} of ${images.length}`}
+						aria-current={i === 0 ? 'true' : 'false'}
+					/>
+				))}
+			</div>
+		)
+	}
+</div>
+
+{
+	/* is:inline keeps this a literal <script src>, not bundled/hoisted —
+	   Astro inlines small hoisted scripts by default, which the site's
+	   script-src 'self' CSP (no 'unsafe-inline') blocks in production. */
+	multiple && <script src="/scripts/piece-carousel.js" type="module" is:inline />
+}
+
+<style>
+	/* ~36rem caps the piece photo at roughly half the width it used to fill
+	   edge-to-edge in the 72rem page container — full-resolution studio shots
+	   were dominating the page next to the placard text. */
+	.carousel {
+		max-width: 36rem;
+	}
+
+	/* No fixed aspect-ratio box here on purpose — a bottle vase and a wide
+	   shallow bowl don't share a ratio, and cropping every slide into the
+	   same frame (object-fit: cover) was losing real parts of the photo.
+	   Each slide shows at its own natural proportions; the frame just sizes
+	   to whichever one is active. */
+	.frame {
+		position: relative;
+		background: var(--sand);
+	}
+
+	.frame :global(img) {
+		display: none;
+		width: 100%;
+		height: auto;
+	}
+
+	.frame :global(img.active) {
+		display: block;
+		animation: fade-in 0.15s ease;
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.frame :global(img.active) {
+			animation: none;
+		}
+	}
+
+	.nav {
+		position: absolute;
+		top: 50%;
+		translate: 0 -50%;
+		width: 2.25rem;
+		height: 2.25rem;
+		border: none;
+		border-radius: var(--radius);
+		background: var(--paper);
+		color: var(--ink);
+		font-size: var(--text-xl);
+		line-height: 1;
+		cursor: pointer;
+		opacity: 0.85;
+	}
+
+	.nav:hover {
+		opacity: 1;
+	}
+
+	.prev {
+		left: var(--space-2);
+	}
+
+	.next {
+		right: var(--space-2);
+	}
+
+	.dots {
+		display: flex;
+		justify-content: center;
+		gap: var(--space-2);
+		margin-top: var(--space-2);
+	}
+
+	.dot {
+		width: 0.5rem;
+		height: 0.5rem;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: var(--sand);
+		cursor: pointer;
+	}
+
+	.dot[aria-current='true'] {
+		background: var(--terracotta-deep);
+	}
+</style>
