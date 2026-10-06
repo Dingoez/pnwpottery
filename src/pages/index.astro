@@ -5,7 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PieceGrid from '../components/PieceGrid.astro';
 import { getAllPieces } from '../lib/pieces';
 import { formatDate } from '../lib/format';
-import homeHero from '../assets/site/home-hero.jpg';
+import homeHero from '../assets/pieces/vase-hendrix-01/01.jpg';
 
 const pieces = await getAllPieces();
 const featured = pieces.filter((piece) => piece.data.featured).slice(0, 6);
@@ -23,26 +23,28 @@ const latestPosts = posts
 	title="Home"
 	description="Colorful, stenciled, one-of-a-kind ceramics made in Seattle by Tim O'Connell."
 >
-	<section class="hero">
-		<Picture
-			src={homeHero}
-			alt="A round white vase with a red rim, hand-stenciled with the USA soccer crest and scattered red and navy stars, sitting on a metal banding wheel"
-			widths={[400, 800, 1200, 1800]}
-			sizes="100vw"
-			formats={['avif', 'webp']}
-			fallbackFormat="jpg"
-			loading="eager"
-			fetchpriority="high"
-		/>
-	</section>
-
 	<div class="container">
 		<section class="intro">
-			<h1>Colorful, stenciled, one-of-a-kind pots — made in Seattle.</h1>
-			<p>
-				I'm Tim. I throw and decorate functional sculptures out of the Throw &amp; Build studio in
-				Wallingford. <a href="/about">More about me →</a>
-			</p>
+			<a href="/pieces/vase-hendrix-01/" class="intro-photo">
+				<Picture
+					src={homeHero}
+					alt="Cream porcelain bottle vase with a terracotta neck and a stencilled portrait of Jimi Hendrix"
+					widths={[400, 700, 1000]}
+					sizes="(min-width: 768px) 31.5rem, 85vw"
+					formats={['avif', 'webp']}
+					fallbackFormat="jpg"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<span class="caption">Hendrix</span>
+			</a>
+			<div class="intro-text">
+				<h1>Colorful, stenciled, one-of-a-kind pots — made in Seattle.</h1>
+				<p>
+					I'm Tim. I throw and decorate functional sculptures out of the Throw &amp; Build studio in
+					Wallingford. <a href="/about">More about me →</a>
+				</p>
+			</div>
 		</section>
 
 		{
@@ -80,25 +82,68 @@ const latestPosts = posts
 </BaseLayout>
 
 <style>
-	.hero :global(img) {
-		width: 100%;
-		height: min(60vh, 30rem);
-		object-fit: cover;
-		/* Bias the crop upward — the pot sits in the top two-thirds of the frame. */
-		object-position: center 38%;
-	}
-
+	/* An editorial pairing rather than a full-bleed banner — one real photo,
+	   shown whole (no crop) and modestly sized, beside the intro copy. */
 	.intro {
-		max-width: 40ch;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-4);
 		padding-block: var(--space-5);
 	}
 
-	.intro h1 {
+	.intro-photo {
+		display: block;
+		width: 100%;
+		max-width: 28rem;
+		text-decoration: none;
+	}
+
+	.intro-photo :global(img) {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.intro-photo .caption {
+		display: block;
+		margin-top: var(--space-2);
+		font-family: var(--font-mono);
+		font-size: var(--text-sm);
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		color: var(--sage-deep);
+		text-align: center;
+	}
+
+	.intro-photo:hover .caption {
+		color: var(--terracotta-deep);
+	}
+
+	.intro-text {
+		max-width: 40ch;
+	}
+
+	.intro-text h1 {
 		margin-bottom: var(--space-3);
 	}
 
-	.intro p {
+	.intro-text p {
 		margin: 0;
+	}
+
+	@media (min-width: 768px) {
+		.intro {
+			flex-direction: row;
+			align-items: center;
+			gap: var(--space-6);
+		}
+
+		.intro-photo {
+			flex-shrink: 0;
+			width: 31.5rem;
+			max-width: 31.5rem;
+		}
 	}
 
 	.block {
